@@ -8,7 +8,7 @@ BLUE = "\033[34m"     # VIP seat
 RESET = "\033[39m"    # Reset color
 
 print("Welcome to my Airplane Seat Booking Manager!")
-print("Hello World")
+
 # Create a seating chart (e.g. 5x5) using a 2D list
 seating_chart = [
     [0,0,0,0,0],
@@ -20,13 +20,21 @@ seating_chart = [
 # Set all seats as "available"
 for i in range(5):
     for j in range(5):
-        seating_chart[i][j] = GREEN + "A" + RESET
+        seating_chart[i][j] = "A"
 
 # Function to display the seating chart with color-coded seats using a nested loop
 def display_chart():
     for i in range(5):
-        print(seating_chart[i])
-        
+        for j in range(5):
+            if seating_chart[i][j] == "A":
+                print(f"{GREEN}A{RESET}", end="\t")
+            elif seating_chart[i][j] == "B":
+                print(f"{RED}B{RESET}", end="\t")
+            elif seating_chart[i][j] == "R":
+                print(f"{YELLOW}R{RESET}", end="\t")
+            elif seating_chart[i][j] == "V":
+                print(f"{BLUE}V{RESET}", end="\t")
+        print()
 # Function to book a seat
 def book_seat(row, column):
     seating_chart[row][column] = "B"
