@@ -7,7 +7,7 @@ YELLOW = "\033[32m"   # Reserved seat
 BLUE = "\033[34m"     # VIP seat
 RESET = "\033[39m"    # Reset color
 
-
+print("Hello World")
 # Create a seating chart (e.g. 5x5) using a 2D list
 seating_chart = [
     [0,0,0,0,0],
@@ -49,25 +49,6 @@ def save_file():
         writer.writerows(seating_chart)
 
 # Function to load seating chart from a file
-# def open_file():
-#     global seating_chart
-#     temp_file = [
-#         [0,0,0,0,0],
-#         [0,0,0,0,0],
-#         [0,0,0,0,0],
-#         [0,0,0,0,0],
-#         [0,0,0,0,0]
-#     ]
-#     file = open("seating_chart.txt", "r")
-#     for i in temp_file:
-#         line = file.readline()
-#         temp_file = line[0:9:2]
-#         temp_file = list(temp_file)
-#         print(temp_file)
-#         for j in range(5):
-#             for k in range(5):
-#                 seating_chart[j][k] = temp_file[k]
-#     file.close
 def open_file():
     global seating_chart
     temp_file = [
