@@ -8,7 +8,7 @@ BLUE = "\033[34m"     # VIP seat
 RESET = "\033[39m"    # Reset color
 
 print("Welcome to my Airplane Seat Booking Manager!")
-
+print("Hello World")
 # Create a seating chart (e.g. 5x5) using a 2D list
 seating_chart = [
     [0,0,0,0,0],
