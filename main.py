@@ -1,26 +1,27 @@
 import csv
 
 # Define color codes (ANSI Format)
-GREEN = "\033[32m"    # Available seat
-RED = "\033[31m"      # booked seat
-YELLOW = "\033[33m"   # Reserved seat
-BLUE = "\033[34m"     # VIP seat
-RESET = "\033[39m"    # Reset color
+GREEN = "\033[32m"  # Available seat
+RED = "\033[31m"  # booked seat
+YELLOW = "\033[33m"  # Reserved seat
+BLUE = "\033[34m"  # VIP seat
+RESET = "\033[39m"  # Reset color
 
 print("Welcome to my Airplane Seat Booking Manager!")
 
 # Create a seating chart (e.g. 5x5) using a 2D list
 seating_chart = [
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0]
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0]
 ]
 # Set all seats as "available"
 for i in range(5):
     for j in range(5):
         seating_chart[i][j] = "A"
+
 
 # Function to display the seating chart with color-coded seats using a nested loop
 def display_chart():
@@ -35,37 +36,44 @@ def display_chart():
             elif seating_chart[i][j] == "V":
                 print(f"{BLUE}V{RESET}", end="\t")
         print()
+
+
 # Function to book a seat
 def book_seat(row, column):
     seating_chart[row][column] = "B"
+
 
 # Function to reserve a seat
 def reserve_seat(row, column):
     seating_chart[row][column] = "R"
 
+
 # Function to mark a seat as VIP
 def vip_seat(row, column):
     seating_chart[row][column] = "V"
+
 
 # Function to free up a seat
 def free_seat(row, column):
     seating_chart[row][column] = "A"
 
+
 # Function to save seating chart to a file
 def save_file():
-    with open("seating_chart.txt", "w", newline = "") as file:
+    with open("seating_chart.txt", "w", newline="") as file:
         writer = csv.writer(file)
         writer.writerows(seating_chart)
+
 
 # Function to load seating chart from a file
 def open_file():
     global seating_chart
     temp_file = [
-        [0,0,0,0,0],
-        [0,0,0,0,0],
-        [0,0,0,0,0],
-        [0,0,0,0,0],
-        [0,0,0,0,0]
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0]
     ]
     file = open("seating_chart.txt", "r")
     for i in range(5):
@@ -75,6 +83,7 @@ def open_file():
         for j in range(5):
             seating_chart[i][j] = temp_file[j]
     file.close
+
 
 def change_seat(row, column):
     global Available, Booked, Reserved, VIP
@@ -87,14 +96,17 @@ def change_seat(row, column):
     else:
         VIP = VIP - 1
 
+
 Available = 0
 Booked = 0
 Reserved = 0
 VIP = 0
+revenue = 0
+
 
 # Main program loop
 def main():
-    global Available, Booked, Reserved, VIP
+    global Available, Booked, Reserved, VIP, revenue
     previous_chart = True
     while previous_chart == True:
         previous = input("Would you like to work with the previous seating list? Enter yes or no: ")
@@ -120,12 +132,24 @@ def main():
             else:
                 VIP = VIP + 1
     loop = True
+    print("There are ", Available, " number of seats available. ", Booked, "Number of seats booked. ", Reserved,
+          "Number of seats reserved.", VIP, "Number of VIP seats.", "Total Cost is: $", revenue)
     while loop == True:
-        print("There are ", Available, " number of seats available. ", Booked, "Number of seats booked. ",Reserved, "Number of seats reserved.", VIP, "Number of VIP seats." )
-        action = input("Are you booking, reserving, marking a seat as VIP or Freeing up a seat. Enter booking, reserving, vip or free: ")
+        action = input(
+            "Are you booking, reserving, marking a seat as VIP or Freeing up a seat. Enter booking, reserving"
+            ", vip or free: ")
         action = action.lower()
         if action == "booking":
-            row  = int(input("Which row would you like to book? 1-5"))
+            pay = input("Booking seats cost $10. Would you like to continue. yes/no")
+            pay = pay.lower()
+            if pay == "yes":
+                revenue = revenue + 10
+            elif pay == "no":
+                continue
+            else:
+                print("invalid input")
+                continue
+            row = int(input("Which row would you like to book? 1-5"))
             row = row - 1
             column = int(input("Which column would you like to book? 1-5"))
             column = column - 1
@@ -134,7 +158,7 @@ def main():
             save_file()
             Booked = Booked + 1
         elif action == "reserving":
-            row  = int(input("Which row would you like to reserve? 1-5"))
+            row = int(input("Which row would you like to reserve? 1-5"))
             row = row - 1
             column = int(input("Which column would you like to reserve? 1-5"))
             column = column - 1
@@ -143,7 +167,7 @@ def main():
             save_file()
             Reserved = Reserved + 1
         elif action == "vip":
-            row  = int(input("Which row would you like to mark as vip? 1-5"))
+            row = int(input("Which row would you like to mark as vip? 1-5"))
             row = row - 1
             column = int(input("Which column would you like to mark as vip? 1-5"))
             column = column - 1
@@ -152,7 +176,7 @@ def main():
             save_file()
             VIP = VIP + 1
         elif action == "free":
-            row  = int(input("Which row would you like to free? 1-5"))
+            row = int(input("Which row would you like to free? 1-5"))
             row = row - 1
             column = int(input("Which column would you like to free? 1-5"))
             column = column - 1
@@ -163,7 +187,7 @@ def main():
         else:
             print("Invalid input")
             continue
-        edit = input("Would you like to continue editng the seating chart? Enter yes or no: ")
+        edit = input("Would you like to continue editing the seating chart? Enter yes or no: ")
         edit = edit.lower()
         if edit == "yes":
             loop = True
@@ -172,5 +196,8 @@ def main():
         else:
             continue
         display_chart()
+        print("There are ", Available, " number of seats available. ", Booked, "Number of seats booked. ", Reserved,
+              "Number of seats reserved.", VIP, "Number of VIP seats.", "Total Cost is: $", revenue)
+
 
 main()
