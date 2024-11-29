@@ -3,7 +3,7 @@ import csv
 # Define color codes (ANSI Format)
 GREEN = "\033[32m"    # Available seat
 RED = "\033[31m"      # booked seat
-YELLOW = "\033[34m"   # Reserved seat
+YELLOW = "\033[33m"   # Reserved seat
 BLUE = "\033[34m"     # VIP seat
 RESET = "\033[39m"    # Reset color
 
